@@ -67,7 +67,6 @@ jobs:
       - name: Update version in setup.py config file.
         run: |
           # sed -i "s/version = \".*\"/version = \"${{ steps.get_version.outputs.VERSION }}\"/" setup.py
-          echo $PKG_VERSION
           sed -i 's/version="[^"]*"/version="$PKG_VERSION"/' setup.py
           # sed -i 's/version="[^"]*"/version="$PKG_VERSION"/' setup.py
 
