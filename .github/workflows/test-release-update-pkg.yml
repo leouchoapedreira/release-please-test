@@ -61,12 +61,15 @@ jobs:
           # https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
           # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#environment-files
           VERSION=$(grep -oP '\[\K[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md | head -1)
+          echo $VERSION
           echo "{PKG_VERSION}={VERSION}" >> "$GITHUB_ENV"
 
       - name: Update version in setup.py config file.
         run: |
           # sed -i "s/version = \".*\"/version = \"${{ steps.get_version.outputs.VERSION }}\"/" setup.py
+          echo $PKG_VERSION
           sed -i 's/version="[^"]*"/version="$PKG_VERSION"/' setup.py
+          # sed -i 's/version="[^"]*"/version="$PKG_VERSION"/' setup.py
 
 
       - name: Commit and push if changed.
